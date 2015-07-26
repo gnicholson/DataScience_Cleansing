@@ -1,0 +1,56 @@
+#CODEBOOK
+
+This is a codebook that can be used in sequence with the Run_Analysis.R R Script to understand variable names and processes.
+
+
+The Run_Analysis.R R Script is dependent on a thorough understanding of the source datasets.  Refer to http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones and https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip for background on the provided files.
+
+
+The R Script follows the following steps:
+
+1) Downloads the Data to the local directory from the source
+    Note:  This wasn't a course requirement, but nothing wrong with downloading it again :)
+
+2) Reads in the data.  This includes 7 datasets:
+   Subject_Train:  The Subjects for the train dataset
+   X_Train:  All of the numeric measures of the train dataset
+   Y_Train:  Activities for the train dataset
+   
+   Subject_Test:  The subjects for the test dataset
+   X_Test:  All of the numeric measures of the test dataset
+   Y_Test:  Activities for the test dataset
+  
+      These datasets are combined together to create one master dataset called Smartphone_Study.
+  
+   Features - this contained the column names for the numeric measures
+  
+3) The columns were named based on the variables in the features dataset.
+
+4) Only the measures that contained the strings mean() or std() were retained.  This was because only the mean and standard deviations of variables were required.  All means and standard deviations of the initial dataset were included in order to maximize completeness.  The meanfreq columns, however, were excluded, as they were not deemed to be responsive to the course request of a 'mean'.
+
+5) The activities were named based on the documentation provided by the study.  
+
+6) The dataset is tidied by getting reshaped (tall format) and then summarized by calculating the mean for each subject/activity combination across all measures retained in step 4.
+
+7) The resulting dataset is exported from R to a text file.
+
+
+
+The R Script Creates the following datasets:
+
+Smartphone_Study:  The combination of the 7 raw text files from the study
+Smartphone_Study_Averages:  The final analysis which gives the average of each of the mean and standard deviation measures by activity and subject.
+Smartphone_Study_Melt:  A melted version of the Smartphone_Study_Reduc dataset, following the "tall" tidy data pattern.
+Smartphone_Study_Reduc:  A Reduced version of the Smartphone_Study dataset from the perspective of only standard deviation and mean measure columns were retained.
+Test_Master:  The combination of all 3 Test rawdata files.
+Train_Master:  The combination of all 3 Train rawdata files.
+features:  The raw data file containing measure field names.
+mean_or_Std, mean_or_std_2:  temporary datasets used to identify a list of field names that were a mean or standard deviation field.
+Subject_test, Subject_train, x_test, x_train, y_test, y_train:  All of these datasets refer to the raw data files on initial read in to R
+
+The R Script Creates the following Values:
+
+feature_names - all feature names from the features data frame
+feature_names_mean_std - the feature names that contain mean() or std() in them
+names_vector - all names retained in teh Smartphone Study dataset
+Subject_act_names - a hard-coded vector containing the categorical column names (subject and activity)
